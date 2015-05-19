@@ -4,13 +4,13 @@
 
 'use strict';
 
-var Post = require('./post.model');
+var post = require('./post.model');
 
 exports.register = function(socket) {
-  Post.schema.post('save', function (doc) {
+  post.schema.post('save', function (doc) {
     onSave(socket, doc);
   });
-  Post.schema.post('remove', function (doc) {
+  post.schema.post('remove', function (doc) {
     onRemove(socket, doc);
   });
 }

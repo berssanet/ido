@@ -1,8 +1,10 @@
 'use strict';
 
 angular.module('idoApp')
-  .controller('MainCtrl', function ($scope, $http, socket) {
+  .controller('MainCtrl', function ($scope, $http, socket, Auth) {
     $scope.awesomeThings = [];
+    
+    $scope.getCurrentUser = Auth.getCurrentUser;
 
     $http.get('/api/things').success(function(awesomeThings) {
       $scope.awesomeThings = awesomeThings;
@@ -13,7 +15,7 @@ angular.module('idoApp')
       if($scope.newThing === '') {
         return;
       }
-      $http.post('/api/things', { name: $scope.newThing });
+      $http.post('/api/things', { name: $scope.newThing, postedBy: $scope.getCurrentUser()._id });
       $scope.newThing = '';
     };
 
